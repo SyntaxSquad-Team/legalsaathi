@@ -35,6 +35,7 @@ class AskResponse(BaseModel):
 
 class SummaryRequest(BaseModel):
     doc_id: str
+    language: str="English"
 
 
 class SummaryResponse(BaseModel):

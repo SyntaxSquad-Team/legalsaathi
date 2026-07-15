@@ -70,7 +70,7 @@ def get_case_summary(request: SummaryRequest, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Document not found.")
 
     try:
-        summary = get_summary(doc.extracted_text)
+        summary = get_summary(doc.extracted_text, request.language)
         return SummaryResponse(
             success=True,
             summary=summary,

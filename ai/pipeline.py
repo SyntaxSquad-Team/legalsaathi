@@ -52,12 +52,12 @@ def get_answer(doc_id: str, question: str) -> dict:
     return {"answer": answer, "citations": citations}
 
 
-def get_summary(extracted_text: str) -> str:
+def get_summary(extracted_text: str, language: str = "English") -> str:
     """
     Generate a plain-language summary of the full document.
     Called once after upload and OCR.
     """
-    prompt = build_summary_prompt(extracted_text)
+    prompt = build_summary_prompt(extracted_text, language)
     summary = generate_answer("", prompt)   # no separate system prompt needed here
     return summary
 

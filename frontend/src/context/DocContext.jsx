@@ -2,16 +2,12 @@ import React, { createContext, useContext, useState } from "react";
 
 const DocContext = createContext(null);
 
-/**
- * DocProvider wraps the whole app.
- * Any page can read docId, summary, filename from here
- * without passing props through every component.
- */
 export function DocProvider({ children }) {
-  const [docId, setDocId]       = useState(null);
-  const [filename, setFilename] = useState(null);
-  const [summary, setSummary]   = useState(null);
+  const [docId, setDocId]         = useState(null);
+  const [filename, setFilename]   = useState(null);
+  const [summary, setSummary]     = useState(null);
   const [pageCount, setPageCount] = useState(null);
+  const [summaryLang, setSummaryLang] = useState("hindi"); // track which lang summary is in
 
   function setDocument(data) {
     setDocId(data.doc_id);
@@ -24,12 +20,13 @@ export function DocProvider({ children }) {
     setFilename(null);
     setSummary(null);
     setPageCount(null);
+    setSummaryLang("hindi");
   }
 
   return (
     <DocContext.Provider value={{
-      docId, filename, summary, pageCount,
-      setDocument, setSummary, clearDocument
+      docId, filename, summary, pageCount, summaryLang,
+      setDocument, setSummary, setSummaryLang, clearDocument
     }}>
       {children}
     </DocContext.Provider>

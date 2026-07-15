@@ -31,7 +31,7 @@ Answer the following question based strictly on the above chunks:"""
     return prompt
 
 
-def build_summary_prompt(full_text: str) -> str:
+def build_summary_prompt(full_text: str, language: str= "English") -> str:
     """
     Build the prompt for generating a plain-language case summary.
     Used once after document upload.
@@ -50,7 +50,7 @@ Your summary must include:
 4. What has happened so far (previous hearings, orders passed)
 5. What is the current status of the case
 
-Keep the summary under 300 words. Use simple Hindi or English depending on the language of the document.
+Keep the summary under 300 words. Write the entire summary in {language}. Do not use any other language.
 Do not add any information not present in the document.
 
 DOCUMENT:

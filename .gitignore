@@ -5,6 +5,7 @@ ai/chroma_store/
 *.db
 
 # Python
+node_modules/
 __pycache__/
 *.pyc
 *.pyo
