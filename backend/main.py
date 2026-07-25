@@ -12,7 +12,10 @@ app = FastAPI(
 #  CORS — allow React frontend to talk to this server 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # React dev server
+    allow_origins=[
+        "http://localhost:3000",
+        "https://legalsaathi-pi.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
