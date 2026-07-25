@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:8000/api";
 
 const api = axios.create({ baseURL: BASE_URL, timeout: 90000 });
 
-// Language code map for Gemini prompts
+// Languages code map for Gemini prompts
 export const LANGUAGES = [
   { code: "english",    label: "English",    gemini: "English" },
   { code: "hindi",      label: "Hindi",      gemini: "Hindi" },

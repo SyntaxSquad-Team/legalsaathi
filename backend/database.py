@@ -13,7 +13,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-# ── Table: uploaded documents ─────────────────────────────────────────────────
+# Table: uploaded documents
 
 class Document(Base):
     __tablename__ = "documents"
@@ -28,7 +28,7 @@ class Document(Base):
     created_at          = Column(DateTime, default=datetime.utcnow)
 
 
-# ── Table: Q&A history ────────────────────────────────────────────────────────
+#  Table: Q&A history
 
 class QAHistory(Base):
     __tablename__ = "qa_history"

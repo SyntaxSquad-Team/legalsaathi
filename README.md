@@ -9,7 +9,7 @@ Built for InnovaHack Chapter 1 — Gen AI Track.
 ## What It Does
 
 - Upload any court document (FIR, chargesheet, bail order, hearing order)
-- Get a plain-language summary in Hindi or English
+- Get a plain-language summary in 7 Indian languages (English, Hindi, Kannada, Tamil, Telugu, Marathi, Bengali)
 - Ask questions about your case — answers are cited from your document
 - Predict next hearing date based on eCourts historical data
 - Zero hallucination — the AI cannot answer outside your uploaded document
@@ -20,10 +20,44 @@ Built for InnovaHack Chapter 1 — Gen AI Track.
 
 ```
 legalsaathi/
-├── backend/          — FastAPI server + API endpoints
-├── ai/               — RAG pipeline (chunking, embeddings, retrieval, Gemini)
-└── frontend/         — React + Tailwind UI
+├── ai/                — RAG pipeline (chunking, embeddings, retrieval, Gemini)
+│   ├── chroma_store/   — local vector store (auto-created)
+│   ├── chunker.py
+│   ├── embeddings.py
+│   ├── gemini_client.py
+│   ├── pipeline.py
+│   ├── prompt.py
+│   └── retriever.py
+├── backend/            — FastAPI server + API endpoints
+│   ├── routes/
+│   ├── services/
+│   ├── uploads/         — gitignored
+│   ├── .env             — gitignored, create from .env.example
+│   ├── .env.example
+│   ├── config.py
+│   ├── database.py
+│   ├── main.py
+│   ├── models.py
+│   └── requirements.txt
+├── frontend/            — React + Tailwind UI
+│   ├── public/
+│   │   └── index.html
+│   ├── src/
+│   │   ├── components/   — e.g. Navbar
+│   │   ├── context/
+│   │   ├── pages/        — e.g. Login, Dashboard
+│   │   ├── services/
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── index.js
+│   ├── package.json
+│   ├── postcss.config.js
+│   └── tailwind.config.js
+├── .gitignore
+└── README.md
 ```
+
+Note: `ai/` sits at the project root alongside `backend/` and `frontend/` — it is not nested inside `backend/`.
 
 ---
 
@@ -79,7 +113,7 @@ cd legalsaathi
 
 ---
 
-### Step 2 — Set Up the Backend (Member 1)
+### Step 2 — Set Up the Backend
 
 Open a terminal and run:
 
@@ -133,11 +167,23 @@ Leave `ECOURTS_API_KEY` blank for now — the app will use mock data for timelin
 
 ### Step 4 — Run the Backend
 
-Make sure you are still inside `backend/` with the virtual environment active, then run:
+Make sure you are still inside `backend/` with the virtual environment active.
 
-```bash
+Since `ai/` lives one level up at the project root, you need to add the project root to `PYTHONPATH` so `main.py` can import from `ai/`:
+
+**Windows (PowerShell):**
+```powershell
+$env:PYTHONPATH=".."
 uvicorn main:app --reload
 ```
+
+**Mac / Linux:**
+```bash
+export PYTHONPATH=..
+uvicorn main:app --reload
+```
+
+Note: `PYTHONPATH` is set per terminal session — if you close and reopen the terminal, run that line again before `uvicorn`.
 
 You should see:
 
@@ -153,7 +199,7 @@ Keep this terminal open. The backend must stay running.
 
 ---
 
-### Step 5 — Set Up the Frontend (Member 3)
+### Step 5 — Set Up the Frontend
 
 Open a new terminal (keep the backend terminal running):
 
@@ -184,12 +230,12 @@ The app opens automatically at http://localhost:3000
 ## How to Use the App
 
 1. Open http://localhost:3000
-2. On the Upload page, drag and drop a court document PDF
+2. Log in, then on the Upload page, drag and drop a court document PDF
 3. Wait for OCR and summary generation (10 to 30 seconds depending on document size)
-4. You are taken to the Summary page automatically
+4. You are taken to the Summary page automatically — choose your summary language from the 7 available
 5. Click "Ask Questions" to open the chat interface
 6. Type any question about your case or pick from the suggested questions
-7. Click "View Timeline" to predict the next hearing date
+7. Click "Timeline" to predict the next hearing date
 
 ---
 
@@ -227,34 +273,20 @@ Node.js is not installed. Download from https://nodejs.org and install, then reo
 **"Module not found" in Python**
 The virtual environment is not activated. Run `venv\Scripts\activate` (Windows) or `source venv/bin/activate` (Mac/Linux) before running uvicorn.
 
+**"ModuleNotFoundError: No module named 'ai'"**
+`PYTHONPATH` is not set. Run `$env:PYTHONPATH=".."` (Windows PowerShell) or `export PYTHONPATH=..` (Mac/Linux) in the same terminal, before `uvicorn main:app --reload`.
+
 **Upload takes too long**
 Large scanned PDFs take longer because every page goes through OCR. For demo, use a small 2 to 5 page document.
 
 ---
 
-## Team Responsibilities
-
-| Member | What They Own |
-|---|---|
-| Member 1 | backend/main.py, config.py, models.py, database.py, routes/, services/ |
-| Member 2 | ai/pipeline.py, chunker.py, embeddings.py, retriever.py, prompt.py, gemini_client.py |
-| Member 3 | frontend/src/ — all pages, components, services, context |
-
----
-
 ## Git Workflow
 
-Each member works on their own branch:
+Work on feature branches rather than committing straight to `main`:
 
 ```bash
-# Member 1
-git checkout -b backend
-
-# Member 2
-git checkout -b ai-pipeline
-
-# Member 3
-git checkout -b frontend
+git checkout -b backend        # or ai-pipeline, frontend, etc.
 ```
 
 Save progress every 1 to 2 hours:
@@ -265,17 +297,15 @@ git commit -m "brief description of what you built"
 git push origin your-branch-name
 ```
 
-Merge everything into main at Hour 10:
+Merge into main once a piece is working:
 
 ```bash
 git checkout main
-git merge backend
-git merge ai-pipeline
-git merge frontend
+git merge your-branch-name
 git push origin main
 ```
 
-Everyone pulls after merge:
+Everyone pulls after a merge:
 
 ```bash
 git pull origin main
@@ -300,7 +330,7 @@ git pull origin main
 
 ## Notes
 
-- ChromaDB stores vectors locally in ai/chroma_store/ — no cloud needed
-- SQLite database is created automatically on first run
-- The .env file and uploads/ folder are gitignored — never commit them
+- ChromaDB stores vectors locally in `ai/chroma_store/` — no cloud needed
+- SQLite database (`legalsaathi.db`) is created automatically on first run inside `backend/`
+- The `.env` file and `uploads/` folder are gitignored — never commit them
 - eCourts API key is optional — mock timeline data is used if not set

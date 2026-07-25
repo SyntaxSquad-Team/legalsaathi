@@ -5,7 +5,7 @@ from config import GEMINI_API_KEY
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Main generation model
-gemini_model = genai.GenerativeModel("models/gemini-2.5-flash")
+gemini_model = genai.GenerativeModel("models/gemini-3.5-flash")
 
 # Embedding model — used to convert text chunks to vectors
 EMBEDDING_MODEL = "models/gemini-embedding-001"

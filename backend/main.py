@@ -9,7 +9,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# ── CORS — allow React frontend to talk to this server ────────────────────────
+#  CORS — allow React frontend to talk to this server 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],  # React dev server
@@ -18,24 +18,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ── Register routes ───────────────────────────────────────────────────────────
+#  Register routes 
 app.include_router(upload.router, prefix="/api", tags=["Upload"])
 app.include_router(qa.router,     prefix="/api", tags=["Q&A"])
 app.include_router(timeline.router, prefix="/api", tags=["Timeline"])
 
 
-# ── DB init on startup ────────────────────────────────────────────────────────
+#  DB init on startup 
 @app.on_event("startup")
 def startup():
     init_db()
     print("LegalSaathi API is running.")
 
 
-# ── Health check ──────────────────────────────────────────────────────────────
+#  Health check 
 @app.get("/")
 def root():
     return {"status": "ok", "message": "LegalSaathi API is live."}
 
 
-# ── Run locally ───────────────────────────────────────────────────────────────
-# Run with: uvicorn main:app --reload
+
