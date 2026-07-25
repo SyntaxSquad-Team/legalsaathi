@@ -4,7 +4,7 @@ backend/uploads/
 ai/chroma_store/
 *.db
 
-# Python
+# Python folders and files
 node_modules/
 __pycache__/
 *.pyc
