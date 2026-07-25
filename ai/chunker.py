@@ -17,8 +17,8 @@ def chunk_text(text: str) -> list[dict]:
     ]
     """
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=500,
-        chunk_overlap=50,
+        chunk_size=800,
+        chunk_overlap=80,
         separators=["\n\n", "\n", ".", " ", ""]
     )
 

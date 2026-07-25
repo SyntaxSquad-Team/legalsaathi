@@ -2,8 +2,7 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-# ── Upload ────────────────────────────────────────────────────────────────────
-
+#  Upload 
 class UploadResponse(BaseModel):
     success: bool
     doc_id: str
@@ -12,7 +11,7 @@ class UploadResponse(BaseModel):
     message: str
 
 
-# ── Q&A ───────────────────────────────────────────────────────────────────────
+#  Q&A
 
 class AskRequest(BaseModel):
     doc_id: str
@@ -21,7 +20,7 @@ class AskRequest(BaseModel):
 
 class Citation(BaseModel):
     chunk_index: int
-    source_text: str   # the exact chunk the answer came from
+    source_text: str   
 
 
 class AskResponse(BaseModel):
@@ -31,7 +30,7 @@ class AskResponse(BaseModel):
     message: str
 
 
-# ── Summary ───────────────────────────────────────────────────────────────────
+#  Summary
 
 class SummaryRequest(BaseModel):
     doc_id: str
@@ -45,7 +44,7 @@ class SummaryResponse(BaseModel):
     message: str
 
 
-# ── Timeline ──────────────────────────────────────────────────────────────────
+#  Timeline
 
 class TimelineRequest(BaseModel):
     doc_id: str
@@ -57,12 +56,12 @@ class TimelineResponse(BaseModel):
     success: bool
     predicted_next_hearing: str
     estimated_duration_months: int
-    confidence: str                    # "high", "medium", "low"
-    based_on_cases: int                # how many similar cases were used
+    confidence: str                    
+    based_on_cases: int               
     message: str
 
 
-# ── Document metadata (stored in DB) ─────────────────────────────────────────
+#  Document metadata (stored in DB)
 
 class DocumentMeta(BaseModel):
     doc_id: str

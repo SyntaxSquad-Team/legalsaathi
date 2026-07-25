@@ -37,7 +37,7 @@ def build_summary_prompt(full_text: str, language: str= "English") -> str:
     Used once after document upload.
     """
     # Truncate if too long (Gemini 1.5 Flash handles 1M tokens but let's be safe)
-    truncated = full_text[:12000] if len(full_text) > 12000 else full_text
+    truncated = full_text[:20000] if len(full_text) > 20000 else full_text
 
     prompt = f"""You are LegalSaathi, an AI legal assistant for Indian litigants.
 

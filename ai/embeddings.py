@@ -17,25 +17,27 @@ def get_or_create_collection(doc_id: str):
     )
 
 
+import time
+
 def store_chunks(doc_id: str, chunks: list[dict]) -> int:
-    """
-    Embed and store all chunks for a document.
-    Returns number of chunks stored.
-    """
     collection = get_or_create_collection(doc_id)
 
-    texts = [c["text"] for c in chunks]
-    ids   = [f"{doc_id}_{c['chunk_index']}" for c in chunks]
+    texts      = [c["text"] for c in chunks]
+    ids        = [f"{doc_id}_{c['chunk_index']}" for c in chunks]
+    metadatas  = [{"chunk_index": c["chunk_index"]} for c in chunks]
 
-    # Generate embeddings for all chunks
-    embeddings = [get_embedding(text) for text in texts]
+    # Embed in small batches with delay to avoid rate limit
+    embeddings = []
+    for i, text in enumerate(texts):
+        embeddings.append(get_embedding(text))
+        if (i + 1) % 10 == 0:
+            time.sleep(4)   # pause every 10 chunks
 
-    # Store in ChromaDB
     collection.add(
         ids=ids,
         embeddings=embeddings,
         documents=texts,
-        metadatas=[{"chunk_index": c["chunk_index"]} for c in chunks]
+        metadatas=metadatas
     )
 
     return len(chunks)

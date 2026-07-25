@@ -10,7 +10,7 @@ import traceback
 router = APIRouter()
 
 ALLOWED_TYPES = {"application/pdf", "image/png", "image/jpeg"}
-MAX_FILE_SIZE_MB = 20
+MAX_FILE_SIZE_MB = 50
 
 
 @router.post("/upload", response_model=UploadResponse)

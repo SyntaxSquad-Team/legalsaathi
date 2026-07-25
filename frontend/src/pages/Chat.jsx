@@ -4,6 +4,7 @@ import ChatBubble from "../components/ChatBubble";
 import Loader from "../components/Loader";
 import { askQuestion } from "../services/api";
 import { useDoc } from "../context/DocContext";
+import { usePlan } from "../context/PlanContext";
 
 const SUGGESTED = [
   "What is this case about?",
@@ -16,6 +17,7 @@ const SUGGESTED = [
 export default function Chat() {
   const navigate = useNavigate();
   const { docId, filename } = useDoc();
+  const { limits } = usePlan();
 
   const [messages, setMessages] = useState([]);
   const [input, setInput]       = useState("");
@@ -26,6 +28,24 @@ export default function Chat() {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
+
+  if (!limits.chatAccess) {
+    return (
+      <div className="p-8 text-center">
+        <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" />
+          </svg>
+        </div>
+        <p className="text-sm font-semibold text-gray-800 mb-1">Ask Questions is a Pro feature</p>
+        <p className="text-gray-400 text-sm mb-4">Upgrade your plan to ask questions about your case documents.</p>
+        <button onClick={() => navigate("/pricing")}
+          className="px-4 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600">
+          View Plans
+        </button>
+      </div>
+    );
+  }
 
   if (!docId) {
     return (
