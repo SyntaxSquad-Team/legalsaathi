@@ -1,8 +1,12 @@
+# -------------------------------
+# Pydantic Schemas (API layer)
+# -------------------------------
 from pydantic import BaseModel
 from typing import Optional
+from database import init_db
+from database import Base
 
-
-#  Upload 
+# Upload
 class UploadResponse(BaseModel):
     success: bool
     doc_id: str
@@ -10,18 +14,14 @@ class UploadResponse(BaseModel):
     page_count: int
     message: str
 
-
-#  Q&A
-
+# Q&A
 class AskRequest(BaseModel):
     doc_id: str
     question: str
 
-
 class Citation(BaseModel):
     chunk_index: int
     source_text: str   
-
 
 class AskResponse(BaseModel):
     success: bool
@@ -29,13 +29,10 @@ class AskResponse(BaseModel):
     citations: list[Citation]
     message: str
 
-
-#  Summary
-
+# Summary
 class SummaryRequest(BaseModel):
     doc_id: str
-    language: str="English"
-
+    language: str = "English"
 
 class SummaryResponse(BaseModel):
     success: bool
@@ -43,47 +40,38 @@ class SummaryResponse(BaseModel):
     doc_id: str
     message: str
 
-
-#  Timeline
-
+# Timeline
 class TimelineRequest(BaseModel):
     doc_id: str
-    case_type: Optional[str] = None    # e.g. "civil", "criminal"
+    case_type: Optional[str] = None
     court_name: Optional[str] = None
-
 
 class TimelineResponse(BaseModel):
     success: bool
     predicted_next_hearing: str
     estimated_duration_months: int
-    confidence: str                    
-    based_on_cases: int               
+    confidence: str
+    based_on_cases: int
     message: str
 
-
-#  Document metadata (stored in DB)
-
+# Document metadata
 class DocumentMeta(BaseModel):
     doc_id: str
     filename: str
     file_path: str
     page_count: int
     extracted_text_length: int
-    status: str                        # "processing", "ready", "failed"
+    status: str
 
-
-#  Deadlines
-
+# Deadlines
 class DeadlineCreate(BaseModel):
     doc_id: str
     title: str
     description: Optional[str] = ""
-    due_date: str    # ISO date string, e.g. "2026-08-20"
-
+    due_date: str
 
 class DeadlineUpdate(BaseModel):
-    status: str      # pending | done | missed
-
+    status: str
 
 class DeadlineOut(BaseModel):
     id: int
@@ -94,20 +82,16 @@ class DeadlineOut(BaseModel):
     status: str
     days_remaining: int
 
-
-#  Hearings (case hearing tracker)
-
+# Hearings
 class HearingCreate(BaseModel):
     doc_id: str
     hearing_date: str
     court_name: Optional[str] = ""
     purpose: Optional[str] = ""
 
-
 class HearingUpdate(BaseModel):
     status: Optional[str] = None
     outcome: Optional[str] = None
-
 
 class HearingOut(BaseModel):
     id: int
@@ -118,14 +102,11 @@ class HearingOut(BaseModel):
     outcome: str
     status: str
 
-
-#  Multi-document case linking
-
+# Cases
 class CaseCreate(BaseModel):
     title: str
     description: Optional[str] = ""
     doc_ids: list[str] = []
-
 
 class CaseOut(BaseModel):
     case_id: str
@@ -133,14 +114,11 @@ class CaseOut(BaseModel):
     description: str
     doc_ids: list[str]
 
-
-#  Shareable read-only links
-
+# Share links
 class ShareLinkCreate(BaseModel):
     doc_id: Optional[str] = None
     case_id: Optional[str] = None
     expires_in_days: Optional[int] = 7
-
 
 class ShareLinkOut(BaseModel):
     token: str
@@ -149,36 +127,29 @@ class ShareLinkOut(BaseModel):
     case_id: Optional[str] = None
     expires_at: Optional[str] = None
 
-
-#  Case risk score
-
+# Risk score
 class RiskScoreRequest(BaseModel):
     doc_id: str
-
 
 class RiskScoreResponse(BaseModel):
     success: bool
     doc_id: str
-    risk_score: int              # 0-100
-    risk_level: str              # Low | Medium | High
+    risk_score: int
+    risk_level: str
     factors: list[str]
     message: str
 
-
-#  Similar case finder
-
+# Similar cases
 class SimilarCaseRequest(BaseModel):
     doc_id: str
     top_k: Optional[int] = 5
 
-
 class SimilarCaseItem(BaseModel):
     case_title: str
     case_type: str
-    similarity: int              # 0-100
+    similarity: int
     outcome: str
     court: str
-
 
 class SimilarCaseResponse(BaseModel):
     success: bool
@@ -186,9 +157,7 @@ class SimilarCaseResponse(BaseModel):
     similar_cases: list[SimilarCaseItem]
     message: str
 
-
-#  Lawyer matching + directory + booking
-
+# Lawyers + booking
 class LawyerOut(BaseModel):
     id: int
     name: str
@@ -202,12 +171,10 @@ class LawyerOut(BaseModel):
     contact: str
     match_score: Optional[int] = None
 
-
 class LawyerMatchRequest(BaseModel):
     doc_id: Optional[str] = None
     case_type: Optional[str] = None
     city: Optional[str] = None
-
 
 class BookingCreate(BaseModel):
     lawyer_id: int
@@ -215,7 +182,6 @@ class BookingCreate(BaseModel):
     client_contact: str
     doc_id: Optional[str] = None
     message: Optional[str] = ""
-
 
 class BookingOut(BaseModel):
     id: int
@@ -225,14 +191,11 @@ class BookingOut(BaseModel):
     status: str
     created_at: str
 
-
-#  Argument drafter
-
+# Arguments
 class ArgumentDraftRequest(BaseModel):
     doc_id: str
-    stance: str            # e.g. "petitioner", "defendant/accused"
+    stance: str
     key_points: Optional[str] = ""
-
 
 class ArgumentDraftResponse(BaseModel):
     success: bool
@@ -240,9 +203,7 @@ class ArgumentDraftResponse(BaseModel):
     draft_text: str
     message: str
 
-
-#  Document history
-
+# History
 class HistoryItem(BaseModel):
     doc_id: str
     filename: str
@@ -250,3 +211,30 @@ class HistoryItem(BaseModel):
     status: str
     created_at: str
     qa_count: int
+
+
+# -------------------------------
+# SQLAlchemy ORM Models (DB layer)
+# -------------------------------
+from sqlalchemy import Column, Integer, String, Text, DateTime
+from database import Base
+import datetime
+
+class Document(Base):
+    __tablename__ = "documents"
+
+    id = Column(Integer, primary_key=True, index=True)
+    doc_id = Column(String, unique=True, index=True)
+    filename = Column(String)
+    file_path = Column(String)
+    page_count = Column(Integer)
+    extracted_text_length = Column(Integer)
+    status = Column(String)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+class Case(Base):
+    __tablename__ = "cases"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String)
+    description = Column(Text)
