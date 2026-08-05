@@ -4,7 +4,8 @@ from database import get_db, Document
 from models import UploadResponse
 from services.file_store import save_uploaded_file
 from services.ocr import extract_text_from_pdf
-from ai.pipeline import process_document, get_summary
+from legalsaathi.ai.pipeline import process_document, get_summary
+
 import traceback
 
 router = APIRouter()
