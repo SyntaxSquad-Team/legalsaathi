@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
-from database import get_db, Document, QAHistory
-from models import AskRequest, AskResponse, SummaryRequest, SummaryResponse, Citation
-from ai.pipeline import get_answer, get_summary
+from backend.database import get_db
+from backend.models import AskRequest, AskResponse, SummaryRequest, SummaryResponse, Citation, Document, QAHistory
+from backend.ai.pipeline import get_answer, get_summary
 import json
 
 router = APIRouter()

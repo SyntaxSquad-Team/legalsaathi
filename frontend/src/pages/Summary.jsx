@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
-import { getSummary, LANGUAGES } from "../services/api";
+import { getSummary, LANGUAGES, getExportSummaryUrl } from "../services/api";
 import { useDoc } from "../context/DocContext";
 
 export default function Summary() {
@@ -102,7 +102,7 @@ export default function Summary() {
       )}
 
       {/* Actions */}
-      <div className="flex gap-3">
+      <div className="flex gap-3 flex-wrap">
         <button
           onClick={() => navigate("/chat")}
           className="flex-1 py-2.5 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600 transition-colors"
@@ -115,6 +115,14 @@ export default function Summary() {
         >
           View Timeline
         </button>
+        <a
+          href={getExportSummaryUrl(docId, activeLang)}
+          target="_blank"
+          rel="noreferrer"
+          className="flex-1 text-center py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:border-blue-200 hover:text-blue-500 transition-colors"
+        >
+          Export as PDF
+        </a>
       </div>
     </div>
   );

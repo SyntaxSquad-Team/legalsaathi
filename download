@@ -1,0 +1,19 @@
+# Environment
+backend/.env
+backend/uploads/
+backend/exports/
+ai/chroma_store/
+*.db
+
+# Python folders and files
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# General
+.DS_Store
+*.log
