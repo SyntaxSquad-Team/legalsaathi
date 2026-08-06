@@ -87,7 +87,7 @@ export default function Lawyers() {
 
             {bookedIds.includes(l.id) ? (
               <div className="mt-3 text-xs text-green-600 bg-green-50 rounded-lg px-3 py-2 font-medium">
-                Booking request sent
+                Lawyer booked successfully
               </div>
             ) : bookingFor === l.id ? (
               <div className="mt-3 space-y-2">

@@ -6,14 +6,26 @@ load_dotenv()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 GROQ_API_KEY   = os.getenv("GROQ_API_KEY")
+print(GEMINI_API_KEY[:10])
+for model in genai.list_models():
+    if "embedding" in model.name:
+        print("\nTesting:", model.name)
+        try:
+            result = genai.embed_content(
+                model=model.name,
+                content="Hello world",
+                task_type="retrieval_document"
+            )
+            print("Dimension:", len(result["embedding"]))
+        except Exception as e:
+            print("Error:", e)
 
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Primary model — gemini-2.0-flash-lite (mentor suggestion)
 gemini_model = genai.GenerativeModel("gemini-2.0-flash-lite")
 
-EMBEDDING_MODEL = "models/embedding-001"
-
+EMBEDDING_MODEL = "models/gemini-embedding-001"
 
 # ── Embeddings — Gemini only (Groq does not support embeddings) ───────────────
 
@@ -26,6 +38,8 @@ def get_embedding(text: str) -> list[float]:
     )
     return result["embedding"]
 
+embedding=get_embedding("hrllo")
+print(len(embedding))
 
 def get_query_embedding(query: str) -> list[float]:
     """Convert a user question to a vector for retrieval."""

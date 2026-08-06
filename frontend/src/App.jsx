@@ -14,12 +14,9 @@ import Timeline from "./pages/Timeline";
 import Pricing from "./pages/Pricing";
 import Deadlines from "./pages/Deadlines";
 import Hearings from "./pages/Hearings";
-import CaseLinks from "./pages/CaseLinks";
 import Lawyers from "./pages/Lawyers";
 import RiskScore from "./pages/RiskScore";
 import SimilarCases from "./pages/SimilarCases";
-import ShareCase from "./pages/ShareCase";
-import SharedView from "./pages/SharedView";
 import ArgumentDrafter from "./pages/ArgumentDrafter";
 import History from "./pages/History";
 
@@ -46,11 +43,9 @@ function AppLayout() {
           <Route path="/pricing"   element={<Pricing />} />
           <Route path="/deadlines" element={<Deadlines />} />
           <Route path="/hearings"  element={<Hearings />} />
-          <Route path="/cases"     element={<CaseLinks />} />
           <Route path="/lawyers"   element={<Lawyers />} />
           <Route path="/risk-score" element={<RiskScore />} />
           <Route path="/similar-cases" element={<SimilarCases />} />
-          <Route path="/share"     element={<ShareCase />} />
           <Route path="/argument-drafter" element={<ArgumentDrafter />} />
           <Route path="/history"   element={<History />} />
         </Routes>
@@ -78,7 +73,6 @@ export default function App() {
               <Route path="/" element={<Root />} />
               <Route path="/landing" element={<Landing />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/shared/:token" element={<SharedView />} />
 
               {/* Protected — everything inside AppLayout */}
               <Route path="/*" element={

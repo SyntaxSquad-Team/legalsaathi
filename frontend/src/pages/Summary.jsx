@@ -115,14 +115,6 @@ export default function Summary() {
         >
           View Timeline
         </button>
-        <a
-          href={getExportSummaryUrl(docId, activeLang)}
-          target="_blank"
-          rel="noreferrer"
-          className="flex-1 text-center py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:border-blue-200 hover:text-blue-500 transition-colors"
-        >
-          Export as PDF
-        </a>
       </div>
     </div>
   );

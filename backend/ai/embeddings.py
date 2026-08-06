@@ -16,7 +16,7 @@ def store_chunks(doc_id: str, chunks: list[dict]) -> int:
     Each vector ID = doc_id_chunkindex so multiple documents
     coexist in the same index without conflict.
     """
-    from ai.gemini_client import get_embedding
+    from backend.ai.gemini_client import get_embedding
 
     vectors = []
     for i, chunk in enumerate(chunks):

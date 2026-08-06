@@ -22,7 +22,7 @@ def retrieve_relevant_chunks(doc_id: str, question: str) -> list[dict]:
         ...
     ]
     """
-    from ai.gemini_client import get_query_embedding
+    from backend.ai.gemini_client import get_query_embedding
 
     query_embedding = get_query_embedding(question)
 

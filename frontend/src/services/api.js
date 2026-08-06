@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://legalsaathi-production-36e6.up.railway.app/api";
+const BASE_URL = "http://127.0.0.1:8000/api";
 
 const api = axios.create({ baseURL: BASE_URL, timeout: 90000 });
 
@@ -93,50 +93,6 @@ export async function deleteHearing(hearingId) {
   return res.data;
 }
 
-//  Multi-document case linking
-
-export async function createCase(title, description, docIds = []) {
-  const res = await api.post("/cases", { title, description, doc_ids: docIds });
-  return res.data;
-}
-
-export async function listCases() {
-  const res = await api.get("/cases");
-  return res.data;
-}
-
-export async function getCase(caseId) {
-  const res = await api.get(`/cases/${caseId}`);
-  return res.data;
-}
-
-export async function linkDocumentToCase(caseId, docId) {
-  const res = await api.post(`/cases/${caseId}/documents/${docId}`);
-  return res.data;
-}
-
-export async function unlinkDocumentFromCase(caseId, docId) {
-  const res = await api.delete(`/cases/${caseId}/documents/${docId}`);
-  return res.data;
-}
-
-//  Shareable read-only links
-
-export async function createShareLink(docId, caseId, expiresInDays = 7) {
-  const res = await api.post("/share", { doc_id: docId, case_id: caseId, expires_in_days: expiresInDays });
-  return res.data;
-}
-
-export async function viewSharedLink(token) {
-  const res = await api.get(`/share/${token}`);
-  return res.data;
-}
-
-export async function revokeShareLink(token) {
-  const res = await api.delete(`/share/${token}`);
-  return res.data;
-}
-
 //  Case risk score
 
 export async function getRiskScore(docId) {
@@ -185,12 +141,6 @@ export async function draftArgument(docId, stance, keyPoints) {
 export async function listArgumentDrafts(docId) {
   const res = await api.get(`/argument-draft/${docId}`);
   return res.data;
-}
-
-//  Export summary as PDF
-
-export function getExportSummaryUrl(docId, language = "English") {
-  return `${BASE_URL}/export/summary/${docId}?language=${encodeURIComponent(language)}`;
 }
 
 //  Document history

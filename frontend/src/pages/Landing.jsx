@@ -5,7 +5,6 @@ const WORKFLOW = [
   { n: "01", title: "Upload your document", body: "FIR, chargesheet, bail order, or hearing order — any court PDF or scan." },
   { n: "02", title: "Get a plain-language summary", body: "In 7 Indian languages, cited straight from your document, with a risk score." },
   { n: "03", title: "Track and prepare", body: "Deadlines, hearing dates, similar precedents, and a first-draft argument, all in one case file." },
-  { n: "04", title: "Act with support", body: "Match with a lawyer, share a read-only case link, or export your summary as a PDF." },
 ];
 
 const FEATURES = [
@@ -29,8 +28,6 @@ const FEATURES = [
     group: "Get support when you need it",
     items: [
       { title: "Lawyer matching", body: "Matched by case type, city, and experience — with real profiles to book." },
-      { title: "Shareable read-only links", body: "Send your case to family or counsel without handing over your account." },
-      { title: "Export summary as PDF", body: "A clean, printable summary you can carry into any office." },
     ],
   },
 ];
@@ -42,9 +39,6 @@ export default function Landing() {
       <header className="max-w-6xl mx-auto flex items-center justify-between px-6 py-6">
         <span className="font-display text-xl font-semibold tracking-tight">LegalSaathi</span>
         <div className="flex items-center gap-3">
-          <Link to="/login" className="text-sm font-medium text-[#12213D]/70 hover:text-[#12213D] transition-colors px-3 py-2">
-            Log in
-          </Link>
           <Link
             to="/login"
             className="text-sm font-medium bg-[#12213D] text-white px-4 py-2.5 rounded-lg hover:bg-[#1c3255] transition-colors"
@@ -163,7 +157,7 @@ export default function Landing() {
 
       <footer className="border-t border-[#12213D]/10 py-8">
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between text-xs text-[#5B6472]">
-          <span>LegalSaathi — built for InnovaHack Chapter 1, Gen AI Track.</span>
+          <span>LegalSaathi — built for InnovaHack Chapter 1, Startup Domain.</span>
           <span>Not a substitute for advice from a licensed advocate.</span>
         </div>
       </footer>
