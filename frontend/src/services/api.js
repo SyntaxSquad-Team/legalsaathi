@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://127.0.0.1:8000/api";
+const BASE_URL = "https://legalsaathi-production-36e6.up.railway.app/";
 
 const api = axios.create({ baseURL: BASE_URL, timeout: 90000 });
 
