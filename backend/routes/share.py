@@ -2,9 +2,9 @@ from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
 import secrets
-from database import get_db, ShareLink, Document, Case, CaseDocument
-from models import ShareLinkCreate, ShareLinkOut
-from config import FRONTEND_URL
+from backend.database import get_db
+from backend.models import ShareLinkCreate, ShareLinkOut, Document, Case, ShareLink, CaseDocument
+from backend.config import FRONTEND_URL
 
 router = APIRouter()
 

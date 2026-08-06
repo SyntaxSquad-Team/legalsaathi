@@ -1,8 +1,11 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
-from database import get_db, Document, ArgumentDraft
-from models import ArgumentDraftRequest, ArgumentDraftResponse
-from ai.gemini_client import generate_answer
+
+from backend.database import get_db
+from backend.models import Document, ArgumentDraft
+
+from backend.models import ArgumentDraftRequest, ArgumentDraftResponse
+from backend.ai.gemini_client import generate_answer
 
 router = APIRouter()
 

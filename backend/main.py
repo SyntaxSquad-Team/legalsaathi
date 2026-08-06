@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from database import init_db
-from routes import upload, qa, timeline, deadlines, hearings, cases, share, risk, similar_cases, lawyers, argument, export, history
+from backend.routes import upload, qa, timeline, deadlines, hearings, cases, share, risk, similar_cases, lawyers, argument, export, history
 from fastapi import FastAPI
-from database import init_db
-from database import Base
+from backend.database import init_db
+
+
 
 app = FastAPI()
 

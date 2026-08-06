@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
-from database import get_db, Document
-from models import RiskScoreRequest, RiskScoreResponse
-from services.risk_engine import compute_risk_score
+from backend.database import get_db
+from backend.models import RiskScoreRequest, RiskScoreResponse, Document
+from backend.services.risk_engine import compute_risk_score
 
 router = APIRouter()
 

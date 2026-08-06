@@ -1,9 +1,9 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
-from database import get_db, Lawyer, LawyerBooking, Document
-from models import LawyerOut, LawyerMatchRequest, BookingCreate, BookingOut
-from services.lawyer_seed import seed_lawyers_if_empty
-from services.similar_case_finder import detect_case_type
+from backend.database import get_db
+from backend.models import LawyerOut, LawyerMatchRequest, BookingCreate, BookingOut, Document, Lawyer, LawyerBooking
+from backend.services.lawyer_seed import seed_lawyers_if_empty
+from backend.services.similar_case_finder import detect_case_type
 
 router = APIRouter()
 

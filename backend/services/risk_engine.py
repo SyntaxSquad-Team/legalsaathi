@@ -6,7 +6,7 @@ always works) with an optional Gemini pass for a short rationale. Score is
 0-100 where higher = more urgent / higher risk to the litigant.
 """
 import re
-from ai.gemini_client import generate_answer
+from backend.ai.gemini_client import generate_answer
 
 HIGH_RISK_TERMS = [
     "non-bailable", "custody", "arrest warrant", "ex-parte", "default judgment",

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from database import get_db, Document, QAHistory
-from models import HistoryItem
+from backend.database import get_db
+from backend.models import HistoryItem, Document, QAHistory
 
 router = APIRouter()
 

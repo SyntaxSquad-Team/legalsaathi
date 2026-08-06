@@ -3,9 +3,128 @@
 # -------------------------------
 from pydantic import BaseModel
 from typing import Optional
-from database import init_db
-from database import Base
+from datetime import datetime
+from sqlalchemy.orm import relationship
+from backend.database import init_db
+from backend.database import Base
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
 
+class Hearing(Base):
+    __tablename__ = "hearings"
+    __table_args__ = {'extend_existing': True}
+
+    id          = Column(Integer, primary_key=True, index=True)
+    doc_id      = Column(String, nullable=False)
+    hearing_date = Column(DateTime, nullable=False)
+    court_name  = Column(String, default="")
+    purpose     = Column(Text, default="")
+    outcome     = Column(Text, default="")
+    status      = Column(String, default="scheduled")
+    created_at  = Column(DateTime, default=datetime.utcnow)
+
+
+class Deadline(Base):
+    __tablename__ = "deadlines"
+    __table_args__ = {'extend_existing': True}
+
+    id          = Column(Integer, primary_key=True, index=True)
+    doc_id      = Column(String, nullable=False)
+    title       = Column(String, nullable=False)
+    description = Column(Text, default="")
+    due_date    = Column(DateTime, nullable=False)
+    status      = Column(String, default="pending")
+    created_at  = Column(DateTime, default=datetime.utcnow)
+
+class Document(Base):
+    __tablename__ = "documents"
+
+    doc_id             = Column(String, primary_key=True, index=True)
+    filename           = Column(String, nullable=False)
+    file_path          = Column(String, nullable=False)
+    page_count         = Column(Integer, default=0)
+    extracted_text     = Column(Text, default="")
+    extracted_text_len = Column(Integer, default=0)
+    status             = Column(String, default="processing")
+    created_at         = Column(DateTime, default=datetime.utcnow)
+
+
+
+
+class ArgumentDraft(Base):
+    __tablename__ = "argument_drafts"
+    __table_args__ = {'extend_existing': True}
+
+    id         = Column(Integer, primary_key=True, index=True)
+    doc_id     = Column(String, nullable=False)
+    stance     = Column(String, nullable=False)
+    key_points = Column(Text, default="")
+    draft_text = Column(Text, default="")
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class CaseDocument(Base):
+    __tablename__ = "case_documents"
+    __table_args__ = {'extend_existing': True}
+
+    id          = Column(Integer, primary_key=True, index=True)
+    case_id     = Column(Integer, ForeignKey("cases.id"))
+    doc_id      = Column(String, nullable=False)
+    created_at  = Column(DateTime, default=datetime.utcnow)
+
+
+class Lawyer(Base):
+    __tablename__ = "lawyers"
+    __table_args__ = {'extend_existing': True}
+
+    id               = Column(Integer, primary_key=True, index=True)
+    name             = Column(String, nullable=False)
+    specialization   = Column(String, nullable=False)
+    city             = Column(String, nullable=False)
+    experience_years = Column(Integer, default=0)
+    rating           = Column(Integer, default=0)
+    fee_range        = Column(String, default="")
+    languages        = Column(String, default="")
+    bio              = Column(Text, default="")
+    contact          = Column(String, default="")
+
+
+class LawyerBooking(Base):
+    __tablename__ = "lawyer_bookings"
+    __table_args__ = {'extend_existing': True}
+
+    id           = Column(Integer, primary_key=True, index=True)
+    lawyer_id    = Column(Integer, ForeignKey("lawyers.id"))
+    client_name  = Column(String, nullable=False)
+    client_contact = Column(String, nullable=False)
+    doc_id       = Column(String, default="")
+    message      = Column(Text, default="")
+    status       = Column(String, default="pending")
+    created_at   = Column(DateTime, default=datetime.utcnow)
+
+
+class ShareLink(Base):
+    __tablename__ = "share_links"
+    __table_args__ = {'extend_existing': True}
+
+    id          = Column(Integer, primary_key=True, index=True)
+    token       = Column(String, unique=True, nullable=False)
+    share_url   = Column(String, nullable=False)
+    doc_id      = Column(String, default=None)
+    case_id     = Column(Integer, ForeignKey("cases.id"), nullable=True)
+    expires_at  = Column(DateTime, nullable=True)
+    created_at  = Column(DateTime, default=datetime.utcnow)
+
+
+
+class QAHistory(Base):
+    __tablename__ = "qa_history"
+
+    id         = Column(Integer, primary_key=True, autoincrement=True)
+    doc_id     = Column(String, nullable=False)
+    question   = Column(Text, nullable=False)
+    answer     = Column(Text, nullable=False)
+    citations  = Column(Text, default="[]")
+    created_at = Column(DateTime, default=datetime.utcnow)
 # Upload
 class UploadResponse(BaseModel):
     success: bool
@@ -217,24 +336,15 @@ class HistoryItem(BaseModel):
 # SQLAlchemy ORM Models (DB layer)
 # -------------------------------
 from sqlalchemy import Column, Integer, String, Text, DateTime
-from database import Base
-import datetime
 
-class Document(Base):
-    __tablename__ = "documents"
 
-    id = Column(Integer, primary_key=True, index=True)
-    doc_id = Column(String, unique=True, index=True)
-    filename = Column(String)
-    file_path = Column(String)
-    page_count = Column(Integer)
-    extracted_text_length = Column(Integer)
-    status = Column(String)
-    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+
+
 
 class Case(Base):
     __tablename__ = "cases"
-
+    __table_args__ = {'extend_existing': True}
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
     description = Column(Text)

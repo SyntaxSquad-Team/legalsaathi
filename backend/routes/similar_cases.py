@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
-from database import get_db, Document
-from models import SimilarCaseRequest, SimilarCaseResponse, SimilarCaseItem
-from services.similar_case_finder import find_similar_cases
+from backend.database import get_db
+from backend.models import SimilarCaseRequest, SimilarCaseResponse, SimilarCaseItem, Document
+from backend.services.similar_case_finder import find_similar_cases
 
 router = APIRouter()
 

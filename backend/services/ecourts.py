@@ -1,7 +1,7 @@
 import httpx
 import random
 from datetime import datetime, timedelta
-from config import ECOURTS_API_KEY
+from backend.config import ECOURTS_API_KEY
 
 
 # ── eCourts API integration ───────────────────────────────────────────────────

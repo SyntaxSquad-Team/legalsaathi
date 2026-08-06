@@ -2,9 +2,10 @@ from fastapi import APIRouter, HTTPException, Depends
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 import os
-from database import get_db, Document
-from ai.pipeline import get_summary
-from services.pdf_export import build_summary_pdf
+from backend.database import get_db
+from backend.models import Document
+from backend.ai.pipeline import get_summary
+from backend.services.pdf_export import build_summary_pdf
 
 router = APIRouter()
 

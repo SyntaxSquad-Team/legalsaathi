@@ -1,6 +1,5 @@
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-
 def chunk_text(text: str) -> list[dict]:
     """
     Split extracted document text into overlapping chunks.

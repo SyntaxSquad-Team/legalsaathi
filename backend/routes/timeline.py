@@ -1,8 +1,10 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
-from database import get_db, Document
-from models import TimelineRequest, TimelineResponse
-from services.ecourts import get_similar_cases, predict_timeline
+from backend.database import get_db
+from backend.models import Document
+
+from backend.models import TimelineRequest, TimelineResponse
+from backend.services.ecourts import get_similar_cases, predict_timeline
 
 router = APIRouter()
 

@@ -2,7 +2,8 @@ import os
 import uuid
 import aiofiles
 from fastapi import UploadFile
-from config import UPLOAD_DIR
+from backend.config import UPLOAD_DIR
+
 
 
 async def save_uploaded_file(file: UploadFile) -> tuple[str, str]:

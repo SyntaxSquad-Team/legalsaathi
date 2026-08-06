@@ -1,8 +1,10 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from datetime import datetime
-from database import get_db, Deadline, Document
-from models import DeadlineCreate, DeadlineUpdate, DeadlineOut
+from backend.database import get_db
+from backend.models import Deadline, Document
+
+from backend.models import DeadlineCreate, DeadlineUpdate, DeadlineOut
 
 router = APIRouter()
 
