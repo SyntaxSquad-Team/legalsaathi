@@ -32,7 +32,7 @@ async def upload_document(
     2. Save file to disk
     3. Run OCR to extract text
     4. Generate plain-language summary
-    5. Chunk and embed text into ChromaDB
+    5. Chunk and embed text into Pinecone
     6. Save document metadata to SQLite
     7. Return doc_id for use in Q&A and timeline endpoints
     """
@@ -60,7 +60,7 @@ async def upload_document(
         # Generate summary using Gemini
         summary = get_summary(extracted_text)
 
-        # Chunk + embed + store in ChromaDB
+        # Chunk + embed + store in Pinecone
         chunk_count = process_document(doc_id, extracted_text)
 
         # Save metadata to SQLite

@@ -13,7 +13,7 @@ def ask_question(request: AskRequest, db: Session = Depends(get_db)):
     """
     Ask a question about an uploaded document.
 
-    - Retrieves top-K relevant chunks from ChromaDB
+    - Retrieves top-K relevant chunks from Pinecone
     - Sends chunks + question to Gemini
     - Returns grounded answer with citations
 
