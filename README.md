@@ -142,4 +142,3 @@ Opens at [http://localhost:3000](http://localhost:3000)
 - Pinecone stores embeddings for semantic search.
 - eCourts API key is optional — mock data is used if not set.
 - Summaries and arguments are AI-generated aids — **not legal advice**.
-- 
