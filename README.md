@@ -8,15 +8,19 @@ Built for **InnovaHack Hackathon — Open Innovation Track (Gen AI)**.
 
 ## What It Does
 
-- Upload court documents (FIR, chargesheet, bail order, hearing order, etc.)
-- Extract text via OCR (supports English + Hindi)
-- Get a plain-language summary in multiple Indian languages
-- Ask questions about your case — answers are cited from your document
-- Predict next hearing date based on eCourts historical data
-- Track deadlines and hearings with alerts
-- Compute risk scores based on document content
-- Find similar past cases for precedent awareness
-- Browse, match, and book lawyers
+## What It Does
+
+- **AI Document Processing** — Extracts text from scanned and digital legal documents using OCR
+- **Case Summarization** — Converts complex legal language into simple summaries in 7 Indian languages
+- **Document-Based Question Answering** — Ask questions about your uploaded documents and get cited responses generated using RAG
+- **Hearing Timeline Prediction** — Predicts the next hearing date and estimated case duration using eCourts historical data
+- **Deadline Alerts** — Notifies users about upcoming hearing dates and important case deadlines
+- **Hearing Tracker** — Displays the current status and progress of the case across hearings
+- **Risk Score** — Analyzes case information to estimate potential legal risks and highlights important concerns
+- **Similar Cases** — Finds relevant past cases to help users understand similar legal situations
+- **AI Argument Drafter** — Generates structured legal arguments and supporting points based on uploaded case documents
+- **Find a Lawyer** — Helps users locate suitable lawyers based on their case type and location
+- **Document History** — Stores previously uploaded documents and enables quick access to past case records
 
 ---
 
