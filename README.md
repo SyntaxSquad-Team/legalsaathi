@@ -183,14 +183,13 @@ pip install -r requirements.txt
 Create a `.env` file from `.env.example`:
 
 ```env
-GEMINI_API_KEY=your_key_here
-GROQ_API_KEY=your_groq_key_here
-PINECONE_API_KEY=your_pinecone_key_here
-PINECONE_INDEX_NAME=legalsaathi
-ECOURTS_API_KEY=
+GEMINI_API_KEY=your_gemini_api_key_here
+ECOURTS_API_KEY=your_ecourts_api_key_here #not mandatory
 DATABASE_URL=sqlite:///./legalsaathi.db
 UPLOAD_DIR=uploads
-FRONTEND_URL=http://localhost:3000
+PINECONE_API_KEY=your_pinecone_api_here
+PINECONE_INDEX=legalsaathi
+GROQ_API_KEY=your_grok_api_key_here
 ```
 
 Run the backend:
