@@ -161,7 +161,8 @@ Opens at [http://localhost:3000](http://localhost:3000)
 
 | Layer | Technology |
 |---|---|
-| Frontend | React 18, Tailwind CSS |
+| Frontend | React 18, Tailwind CSS , Axios, React Router |
+| Backend | FastAPI, Python 3.10 |
 | OCR | Tesseract, PyMuPDF |
 | AI Pipeline | LangChain, Pinecone, Gemini 2.0 Flash Lite, Groq LLaMA-3.3-70B |
 | Database | SQLite via SQLAlchemy |
