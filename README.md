@@ -40,6 +40,38 @@ Unlike generic AI models such as ChatGPT or other assistants:
 This makes LegalSaathi a **trustworthy legal-tech assistant** rather than a generic conversational AI.
 
 ---
+## Business Model
+
+LegalSaathi offers three tiers to serve individual litigants, advanced users, and law firms/enterprises.
+
+### 1. Free (Litigants)
+
+- Upload up to 5 documents per month
+- Plain-language summaries (English + Hindi)
+- Basic Q&A with citations
+- Timeline prediction (mock data)
+- Auto-delete after 30 days
+
+### 2. Pro (Advanced Individuals)
+
+- Unlimited uploads
+- Summaries in 7 languages (English, Hindi, Kannada, Tamil, Telugu, Marathi, Bengali)
+- Advanced Q&A with citations
+- Timeline prediction using eCourts data
+- Risk scoring
+- Export summaries as PDF
+- Shareable case links
+
+### 3. Business (Law Firms / Enterprises)
+
+- All Pro features
+- Bulk document handling
+- Argument drafting assistance
+- Case linking across multiple clients
+- Team collaboration tools
+- Analytics dashboard (timelines, risk scores, workload)
+- Priority API access
+- Enterprise support & custom integrations
 
 ## Project Structure
 ---
