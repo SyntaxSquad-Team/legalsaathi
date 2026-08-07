@@ -77,30 +77,73 @@ LegalSaathi offers three tiers to serve individual litigants, advanced users, an
 ---
 ```
 legalsaathi/
-├── backend/            — FastAPI server + AI pipeline + API endpoints
-│   ├── ai/              — RAG pipeline (chunking, embeddings, retrieval, Gemini/Groq)
+├── backend/
+│   ├── ai/                      — RAG pipeline (chunking, embeddings, retrieval, Gemini + Grok fallback)
 │   │   ├── chunker.py
 │   │   ├── embeddings.py
 │   │   ├── gemini_client.py
 │   │   ├── pipeline.py
 │   │   ├── prompt.py
 │   │   └── retriever.py
-│   ├── routes/          — Upload, Q&A, Timeline, Deadlines, Hearings, Cases, Share, Risk, Similar Cases, Lawyers, Argument, Export, History
-│   ├── services/         — OCR, PDF export, eCourts API, risk engine, lawyer seeding, file storage
-│   ├── uploads/          — gitignored
+│   ├── routes/                  — API route handlers
+│   │   ├── argument.py           — Argument Drafter
+│   │   ├── deadlines.py          — Deadline Alerts
+│   │   ├── hearings.py           — Case Hearing Tracker
+│   │   ├── history.py            — Document History
+│   │   ├── lawyers.py            — Lawyer Matching
+│   │   ├── qa.py                 — Ask Questions
+│   │   ├── risk.py               — Case Risk Score
+│   │   ├── similar_cases.py      — Similar Case Finder
+│   │   ├── timeline.py           — Timeline Prediction
+│   │   └── upload.py             — Document Upload
+│   ├── services/
+│   │   ├── ecourts.py            — eCourts API integration (+ mock fallback)
+│   │   ├── file_store.py         — upload storage handling
+│   │   ├── lawyer_seed.py        — seed data for lawyer matching
+│   │   ├── ocr.py                — Tesseract/PyMuPDF OCR
+│   │   ├── pdf_export.py         — export drafts/summaries as PDF
+│   │   ├── risk_engine.py        — risk score computation
+│   │   └── similar_case_finder.py
+│   ├── .env.example
 │   ├── config.py
 │   ├── database.py
 │   ├── main.py
-│   ├── models.py
-│   └── requirements.txt
-├── frontend/            — React + Tailwind UI
+│   └── models.py
+├── frontend/
 │   ├── public/
+│   │   ├── favicon.ico
 │   │   └── index.html
 │   ├── src/
 │   │   ├── components/
+│   │   │   ├── ChatBubble.jsx
+│   │   │   ├── FileUploader.jsx
+│   │   │   ├── Loader.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── PlanBadge.jsx
+│   │   │   ├── TimelineCard.jsx
+│   │   │   └── UpgradeModal.jsx
 │   │   ├── context/
+│   │   │   ├── AuthContext.jsx
+│   │   │   ├── DocContext.jsx
+│   │   │   └── PlanContext.jsx
 │   │   ├── pages/
+│   │   │   ├── ArgumentDrafter.jsx
+│   │   │   ├── Chat.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── Deadlines.jsx
+│   │   │   ├── Hearings.jsx
+│   │   │   ├── History.jsx
+│   │   │   ├── Landing.jsx
+│   │   │   ├── Lawyers.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── Pricing.jsx
+│   │   │   ├── RiskScore.jsx
+│   │   │   ├── SimilarCases.jsx
+│   │   │   ├── Summary.jsx
+│   │   │   ├── Timeline.jsx
+│   │   │   └── Upload.jsx
 │   │   ├── services/
+│   │   │   └── api.js
 │   │   ├── App.jsx
 │   │   ├── index.css
 │   │   └── index.js
@@ -108,6 +151,9 @@ legalsaathi/
 │   ├── postcss.config.js
 │   └── tailwind.config.js
 ├── .gitignore
+├── .vscode/settings.json
+├── Procfile                     — backend deploy entrypoint
+├── requirements.txt             — now at project root
 └── README.md
 ```
 
