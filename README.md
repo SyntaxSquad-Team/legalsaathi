@@ -150,8 +150,6 @@ Opens at [http://localhost:3000](http://localhost:3000)
 | POST | `/api/cases` | Create a case linking documents |
 | POST | `/api/risk-score` | Compute risk score |
 | POST | `/api/similar-case` | Find similar past cases |
-| GET | `/api/export/summary` | Download summary as PDF |
-| POST | `/api/share` | Create shareable link |
 | GET | `/api/history` | Document + Q&A history |
 | GET | `/api/health` | Health check |
 
