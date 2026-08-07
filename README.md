@@ -8,8 +8,6 @@ Built for **InnovaHack Hackathon — Open Innovation Track (Gen AI)**.
 
 ## What It Does
 
-## What It Does
-
 - **AI Document Processing** — Extracts text from scanned and digital legal documents using OCR
 - **Case Summarization** — Converts complex legal language into simple summaries in 7 Indian languages
 - **Document-Based Question Answering** — Ask questions about your uploaded documents and get cited responses generated using RAG
