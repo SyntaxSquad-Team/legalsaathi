@@ -87,7 +87,7 @@ legalsaathi/
 | Node.js | 18+ | [nodejs.org](https://nodejs.org) |
 | Tesseract OCR | Latest | [Tesseract Wiki](https://github.com/UB-Mannheim/tesseract/wiki) |
 | Git | Any | [git-scm.com](https://git-scm.com) |
-| Pinecone Account | — | [pinecone.io](https://pinecone.io) |
+| Pinecone | — | [pinecone.io](https://pinecone.io) |
 
 ---
 
