@@ -3,6 +3,8 @@ backend/.env
 backend/uploads/
 ai/chroma_store/
 *.db
+uploads/
+.vscode/
 
 # Python folders and files
 node_modules/
